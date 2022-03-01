@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  rabbitmq:
+    container_name: rabbitmq
+    image: 'rabbitmq:3.7-management'
+    restart: unless-stopped
+    ports:
+      - 5630:5672
+      - 8090:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=1234
+
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    ports:
+      - 3360:3306
+    expose:
+      - '3306'
+    command: ["--default-authentication-plugin=mysql_native_password"]
+    volumes:
+      - my-db:/var/lib/mysql
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    depends_on:
+      - mysql
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - 8088:80
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD:
+
+  php:
+    container_name: php
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8040:8040"
+      - "9040:9001"
+    volumes:
+      - .:/app:delegated
+    depends_on:
+      - rabbitmq
+    command: symfony serve --dir=apps/skeleton/public --port=8040 --force-php-discovery
+
+volumes:
+    my-db:
