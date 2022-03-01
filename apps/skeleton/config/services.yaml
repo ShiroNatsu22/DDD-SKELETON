@@ -1,0 +1,67 @@
+imports:
+  - { resource: ../../../src/Skeleton/Shared/Infrastructure/Symfony/DependencyInjection/skeleton_services.yaml }
+
+services:
+  _defaults:
+    autoconfigure: true
+    autowire: true
+
+  # Configure
+  #_instanceof:
+    # Skeleton\Shared\Domain\Bus\Event\DomainEventSubscriber:
+    #  tags: ['skeleton.domain_event_subscriber']
+
+    #Skeleton\Shared\Domain\Bus\Command\CommandHandler:
+    #  tags: ['skeleton.command_handler']
+
+    #Skeleton\Shared\Domain\Bus\Query\QueryHandler:
+    #  tags: ['skeleton.query_handler']
+
+  Skeleton\Apps\Skeleton\src\Controller\:
+    resource: '../src/Controller'
+    tags: ['controller.service_arguments']
+
+  # Wire
+  #Skeleton\Shared\:
+  #  resource: '../../../../src/Shared'
+
+    #Skeleton\Backoffice\:
+    #resource: '../../../../src/Skeleton'
+
+  # -- TAGGING --
+  Skeleton\Shared\Infrastructure\Bus\Event\InMemory\InMemorySymfonyEventBus:
+    arguments: [!tagged Skeleton.domain_event_subscriber]
+    lazy: true
+
+  Skeleton\Shared\Infrastructure\Bus\Event\DomainEventMapping:
+    arguments: [!tagged Skeleton.domain_event_subscriber]
+
+  Skeleton\Shared\Infrastructure\Bus\Event\DomainEventSubscriberLocator:
+    arguments: [!tagged Skeleton.domain_event_subscriber]
+
+  Skeleton\Shared\Infrastructure\Doctrine\DatabaseConnections:
+    arguments: [!tagged Skeleton.database_connection]
+
+  # -- APP DEFINITIONS --
+  # Command/Query Handlers
+    # Skeleton\Shared\Infrastructure\Bus\Command\InMemorySymfonyCommandBus:
+  #  arguments: [!tagged Skeleton.command_handler]
+
+    #Skeleton\Shared\Infrastructure\Bus\Query\InMemorySymfonyQueryBus:
+  #  arguments: [!tagged Skeleton.query_handler]
+
+  # RabbitMQ
+  Skeleton\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqConnection:
+    arguments:
+      - host: '%env(RABBITMQ_HOST)%'
+        port: '%env(RABBITMQ_PORT)%'
+        login: '%env(RABBITMQ_LOGIN)%'
+        password: '%env(RABBITMQ_PASSWORD)%'
+        read_timeout: 2
+        write_timeout: 2
+        connect_timeout: 5
+
+  Skeleton\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventBus:
+    arguments: ['@Skeleton\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqConnection', '%env(RABBITMQ_EXCHANGE)%']
+
+

@@ -1,0 +1,15 @@
+services:
+  # Databases
+  Doctrine\ORM\EntityManager:
+    arguments:
+      - driver: '%env(DATABASE_DRIVER)%'
+        host: '%env(DATABASE_HOST)%'
+        port: '%env(DATABASE_PORT)%'
+        dbname: '%env(DATABASE_NAME)%'
+        user: '%env(DATABASE_USER)%'
+        password: '%env(DATABASE_PASSWORD)%'
+      - '%env(APP_ENV)%'
+    tags:
+      - { name: skeleton.database_connection }
+    public: true
+

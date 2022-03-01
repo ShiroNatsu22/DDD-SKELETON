@@ -1,0 +1,4 @@
+health-check_get:
+  path: /health-check
+  controller: Skeleton\Apps\Skeleton\Controller\HealthCheck\HealthCheckGetController
+  methods:  [GET]
