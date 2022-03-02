@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Skeleton\Apps\Skeleton\src\Controller\HealthCheck;
+namespace Skeleton\Apps\Skeleton\Controller\HealthCheck;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

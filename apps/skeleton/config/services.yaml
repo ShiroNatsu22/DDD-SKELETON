@@ -17,7 +17,7 @@ services:
     #Skeleton\Shared\Domain\Bus\Query\QueryHandler:
     #  tags: ['skeleton.query_handler']
 
-  Skeleton\Apps\Skeleton\src\Controller\:
+  Skeleton\Apps\Skeleton\Controller\:
     resource: '../src/Controller'
     tags: ['controller.service_arguments']
 
@@ -25,8 +25,6 @@ services:
   #Skeleton\Shared\:
   #  resource: '../../../../src/Shared'
 
-    #Skeleton\Backoffice\:
-    #resource: '../../../../src/Skeleton'
 
   # -- TAGGING --
   Skeleton\Shared\Infrastructure\Bus\Event\InMemory\InMemorySymfonyEventBus:
