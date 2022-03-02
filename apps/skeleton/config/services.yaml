@@ -22,8 +22,8 @@ services:
     tags: ['controller.service_arguments']
 
   # Wire
-  #Skeleton\Shared\:
-  #  resource: '../../../../src/Shared'
+  Skeleton\Shared\:
+    resource: '../../../src/Shared'
 
 
   # -- TAGGING --

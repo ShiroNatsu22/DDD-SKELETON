@@ -30,7 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Skeleton\\Apps\\Skeleton\\": "apps/skeleton",
+            "Skeleton\\Apps\\Skeleton\\": "apps/skeleton/src",
             "Skeleton\\": ["src"]
         }
     },

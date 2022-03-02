@@ -1,6 +1,6 @@
 <?php
 
-use Skeleton\Apps\Skeleton\src\SkeletonKernel;
+use Skeleton\Apps\Skeleton\SkeletonKernel;
 
 require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 

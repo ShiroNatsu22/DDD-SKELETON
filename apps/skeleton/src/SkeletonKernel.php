@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Skeleton\Apps\Skeleton\src;
+namespace Skeleton\Apps\Skeleton;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
